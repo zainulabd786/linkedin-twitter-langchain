@@ -23,15 +23,18 @@ def scrape_linkedin_profile(linkedin_profile_url: str, mock: bool = False):
             timeout=timeout,
         )
     data = response.json()
-    data = {k: v for k, v in data.items() if
-            v not in ([], "", "", None) and k not in ["people_also_viewed", "certifications"]}
+    data = {
+        k: v
+        for k, v in data.items()
+        if v not in ([], "", "", None)
+        and k not in ["people_also_viewed", "certifications"]
+    }
     return data
 
 
 if __name__ == "__main__":
     print(
         scrape_linkedin_profile(
-            linkedin_profile_url="https://www.linkedin.com/in/eden-marco/",
-            mock=True
+            linkedin_profile_url="https://www.linkedin.com/in/eden-marco/", mock=True
         )
     )

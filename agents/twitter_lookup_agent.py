@@ -12,10 +12,9 @@ load_dotenv()
 
 def lookup(name: str) -> str:
     llm = ChatOpenAI(temperature=0, model_name=os.environ["OPENAI_API_MODEL"])
-    template = """
-        given the full name {name_of_person} I want you to get it me a link to their Linkedin profile page. 
-        Your answer should contain only a URL
-    """
+    template =  """
+       given the name {name_of_person} I want you to find a link to their Twitter profile page, and extract from it their username
+       In Your Final answer only the person's username"""
 
     prompt_template = PromptTemplate(
         template=template, input_variables=["name_of_person"]
@@ -23,9 +22,9 @@ def lookup(name: str) -> str:
 
     tools_for_agent = [
         Tool(
-            name="Crawl Google for linkedin profile page",
+            name="Crawl Google for Twitter profile page",
             func=get_profile_url_tavily,
-            description="useful for when you need to get linkedin page URL",
+            description="useful for when you need to get Twitter page URL",
         )
     ]
 
@@ -45,4 +44,4 @@ def lookup(name: str) -> str:
 
 
 if __name__ == "__main__":
-    print(lookup(name="Zainul Abideen"))
+    print(lookup(name="Elon Musk"))
